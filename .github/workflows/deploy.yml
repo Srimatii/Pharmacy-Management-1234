@@ -25,6 +25,12 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./Pharmacy-Management  # Changed to point to subdirectory
+          file: ./Pharmacy-Management/Dockerfile  # Explicit Dockerfile path
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pharmacy-management:latest
+          build-args: |
+            NODE_ENV=production
+
+      - name: Verify Dockerfile location
+        run: ls -la Pharmacy-Management/Dockerfile
